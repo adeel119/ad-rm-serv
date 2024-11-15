@@ -13,7 +13,7 @@
       ansible.builtin.systemd:
         name: "{{ service_name }}"
         state: stopped
-      when: service_action == 'remove'
+      when: service_action == 'stop'
 
     - name: Remove the service package
       ansible.builtin.yum:
