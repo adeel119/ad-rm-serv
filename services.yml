@@ -2,11 +2,6 @@
 - name: Manage Essential Services
   hosts: all
   become: yes
-  vars_prompt:
-    - name: service_action
-      prompt: "Select the action to perform (start/remove)"
-      private: no
-
   tasks:
     - name: Start the service
       ansible.builtin.systemd:
