@@ -1,15 +1,20 @@
 ---
-- name: Manage Service
+- name: Manage Essential Services
   hosts: all
   become: yes
+  vars_prompt:
+    - name: service_action
+      prompt: "Select the action to perform (start/remove)"
+      private: no
+
   tasks:
-    - name: Ensure the service is started
+    - name: Start the service
       ansible.builtin.systemd:
         name: "{{ service_name }}"
         state: started
       when: service_action == 'start'
 
-    - name: Ensure the service is stopped
+    - name: Stop the service
       ansible.builtin.systemd:
         name: "{{ service_name }}"
         state: stopped
