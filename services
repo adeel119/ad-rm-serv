@@ -1,0 +1,23 @@
+---
+- name: Manage Service
+  hosts: all
+  become: yes
+  vars_prompt:
+    - name: service_action
+      prompt: "Select the action to perform (start/remove)"
+      private: no
+      choices:
+        - start
+        - remove
+  tasks:
+    - name: Ensure the service is started
+      ansible.builtin.systemd:
+        name: "{{ service }}"
+        state: started
+      when: service_action == 'start'
+
+    - name: Ensure the service is removed
+      ansible.builtin.package:
+        name: "{{ service }}"
+        state: absent
+      when: service_action == 'remove'
